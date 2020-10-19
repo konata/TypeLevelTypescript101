@@ -35,7 +35,6 @@ module StructuralType {
 
 
 //#region Type-Construct
-
 module TypeConstruct {
     type TypeConstructs = [
         boolean,
@@ -73,12 +72,10 @@ module TypeConstruct {
 
 
 //#region Literal-Type
-
 //#endregion
 
 
 //#region Union-Type
-
 //#endregion
 
 //#region Intersection-Type
@@ -105,7 +102,6 @@ module IntersectionType {
 //#endregion
 
 //#region Generic-Type
-
 //#endregion
 
 //#region Index-Type
