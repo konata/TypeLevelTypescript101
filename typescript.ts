@@ -97,6 +97,10 @@ module IntersectionType {
     function mixin<F, S>(first: F, second: S): F & S {
         return { ...first, ...second }
     }
+
+    function mixin2<F, S>(first: F, second: S) {
+        return Object.assign(first,second)
+    }
 }
 //#endregion
 
