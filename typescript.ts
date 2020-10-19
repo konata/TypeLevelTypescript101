@@ -1,68 +1,73 @@
 //#region Structural-Type
-let foo = 123
-var bar = "bar"
-const foobar = {
-    foo: 'foo',
-    bar: 'bar',
-    baz: function () {
-        console.log(`baz`)
+module StructuralType {
+    let foo = 123
+    var bar = "bar"
+    const foobar = {
+        foo: 'foo',
+        bar: 'bar',
+        baz: function () {
+            console.log(`baz`)
+        }
     }
-}
 
-const foobaz = {
-    foo: 'hello',
-    bar: 'world',
-    baz: function () {
-        console.log(`foobaz`)
+    const foobaz = {
+        foo: 'hello',
+        bar: 'world',
+        baz: function () {
+            console.log(`foobaz`)
+        }
     }
+
+    type Foobar = typeof foobar
+    type Foobaz = typeof foobaz
+
+    type IsSame<F, T> = F extends T ? (T extends F ? true : false) : false
+    type BarIsBaz = IsSame<Foobaz, Foobar>
+
+    const literalStringA = 'literal-a'
+    const literalStringB = 'literal-b'
+    const falsy = false
+    const truly = true
+    const num = 11.2
+    type AIsB = IsSame<typeof literalStringA, typeof literalStringB>
 }
-
-type Foobar = typeof foobar
-type Foobaz = typeof foobaz
-
-type IsSame<F, T> = F extends T ? (T extends F ? true : false) : false
-type BarIsBaz = IsSame<Foobaz, Foobar>
-
-const literalStringA = 'literal-a'
-const literalStringB = 'literal-b'
-const falsy = false
-const truly = true
-const num = 11.2
-type AIsB = IsSame<typeof literalStringA, typeof literalStringB>
 //#endregion
 
 
 //#region Type-Construct
-type TypeConstructs = [
-    boolean,
-    number,
-    string,
-    symbol,
-    any[],
-    unknown,
-    any,
-    void,
-    null,
-    undefined,
-    never
-]
 
-class Authentication {
-    public name?: string
-    public pass?: string
-}
+module TypeConstruct {
+    type TypeConstructs = [
+        boolean,
+        number,
+        string,
+        symbol,
+        any[],
+        unknown,
+        any,
+        void,
+        null,
+        undefined,
+        never
+    ]
 
-type A = 1 | 2 | 3
+    class Authentication {
+        public name?: string
+        public pass?: string
+    }
 
-interface Interface {
-    [_: number]: string;
-    (arg: string): string;
-    interval: number;
-    reset(): void
-}
+    type A = 1 | 2 | 3
 
-type Mapped = {
-    [_ in 'a' | 'b' | 'c']: string
+    interface Interface {
+        [_: number]: string;
+        (arg: string): string;
+        interval: number;
+        reset(): void
+    }
+
+    type Mapped = {
+        [_ in 'a' | 'b' | 'c']: string
+    }
 }
 //#endregion
 
@@ -77,7 +82,22 @@ type Mapped = {
 //#endregion
 
 //#region Intersection-Type
+module IntersectionType {
+    type User = {
+        name: string
+        pass: string
+    }
 
+    type Authenticate = {
+        permission: string[]
+    }
+
+    type Admin = User & Authenticate
+
+    function mixin<F, S>(first: F, second: S): F & S {
+        return { ...first, ...second }
+    }
+}
 //#endregion
 
 //#region Generic-Type
@@ -91,17 +111,19 @@ type Mapped = {
 //#endregion
 
 //#region Conditional-Type & Infer Type
-type Unpack<T> = T extends Promise<infer R> ? R :
-    T extends Array<infer R> ? R :
-    T extends (..._: any[]) => infer R ? R :
-    T
+module Conditional {
+    type Unpack<T> = T extends Promise<infer R> ? R :
+        T extends Array<infer R> ? R :
+        T extends (..._: any[]) => infer R ? R :
+        T
 
-type Values = [
-    Unpack<number[]>,
-    Unpack<Promise<string>>,
-    Unpack<() => boolean>,
-    Unpack<'123'>
-]
+    type Values = [
+        Unpack<number[]>,
+        Unpack<Promise<string>>,
+        Unpack<() => boolean>,
+        Unpack<'123'>
+    ]
+}
 //#endregion
 
 
